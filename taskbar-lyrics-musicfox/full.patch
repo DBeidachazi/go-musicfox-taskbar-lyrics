@@ -185,7 +185,7 @@ index d06054a..051b2b1 100644
  }
  
 diff --git a/internal/types/constants.go b/internal/types/constants.go
-index fe9ff7c..a4cde13 100644
+index fe9ff7c..530ff34 100644
 --- a/internal/types/constants.go
 +++ b/internal/types/constants.go
 @@ -6,7 +6,7 @@ import (
@@ -193,7 +193,7 @@ index fe9ff7c..a4cde13 100644
  var (
  	// AppVersion Inject by -ldflags
 -	AppVersion   = "v3.7.0"
-+	AppVersion   = "v4.7.1"
++	AppVersion   = "v4.7.2"
  	BuildTags    = ""
  	LastfmKey    = ""
  	LastfmSecret = ""
