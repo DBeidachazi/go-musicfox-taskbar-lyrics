@@ -42,7 +42,7 @@ index 01c0602..a3a0776 100644
  	newConfig.Main.Pprof.Port = legacyReg.Main.PProfPort
  
 diff --git a/internal/configs/main.go b/internal/configs/main.go
-index b7e0618..a1ebff7 100644
+index 3c1d845..210d334 100644
 --- a/internal/configs/main.go
 +++ b/internal/configs/main.go
 @@ -30,6 +30,22 @@ type MainOptions struct {
@@ -68,10 +68,10 @@ index b7e0618..a1ebff7 100644
  }
  
  // MainConfig 主界面与核心功能配置
-@@ -65,6 +81,27 @@ type LyricConfig struct {
- 	ShowTranslation bool `koanf:"showTranslation"`
- 	// 偏移: ms
+@@ -67,6 +83,27 @@ type LyricConfig struct {
  	Offset int `koanf:"offset"`
+ 	// 忽略歌词解析错误
+ 	SkipParseErr bool `koanf:"skipParseErr"`
 +	// 任务栏歌词配置 (仅 Windows)
 +	Taskbar TaskbarLyricConfig `koanf:"taskbar"`
 +}
@@ -215,7 +215,7 @@ index 582f900..077497c 100644
  		return false, nil, nil
  	}
 diff --git a/internal/ui/player.go b/internal/ui/player.go
-index 019a8e3..dc1b81b 100644
+index 05d4ef3..80cfa84 100644
 --- a/internal/ui/player.go
 +++ b/internal/ui/player.go
 @@ -4,8 +4,15 @@ import (
@@ -631,7 +631,7 @@ index 019a8e3..dc1b81b 100644
  				if p.renderTicker != nil {
  					select {
  					case p.renderTicker.c <- time.Now():
-@@ -530,6 +911,14 @@ func (p *Player) DownVolume() {
+@@ -532,6 +913,14 @@ func (p *Player) DownVolume() {
  	p.stateHandler.SetPlayingInfo(p.PlayingInfo())
  }
  
@@ -647,12 +647,12 @@ index 019a8e3..dc1b81b 100644
  	p.Player.SetVolume(volume)
  
 diff --git a/utils/filex/embed/config.toml b/utils/filex/embed/config.toml
-index 907be75..9a82668 100644
+index dd385fb..8cf8d28 100644
 --- a/utils/filex/embed/config.toml
 +++ b/utils/filex/embed/config.toml
-@@ -48,6 +48,39 @@ showTranslation = true
- # 歌词显示时间的全局偏移量（毫秒），正值表示歌词提前显示
- offset = 0
+@@ -50,6 +50,39 @@ offset = 0
+ # 忽略歌词解析错误
+ skipParseErr = false
  
 +# 任务栏歌词配置 (仅 Windows)
 +[main.lyric.taskbar]
